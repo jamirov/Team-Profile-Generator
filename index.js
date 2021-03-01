@@ -1,6 +1,8 @@
 const inquirer = require('inquirer');
 const fs = require('fs');
-// const engineerPromptsSync = require('./engineer.js')
+const Manager = require("./lib/manager");
+const Engineer = require("./lib/engineer")
+const Intern = require("./lib/intern")
 const team = [];
 
 function promptForManager(){
@@ -103,7 +105,8 @@ function promptForIntern(){
 
 function runManager(){
   promptForManager().then(function(response){
-    team.push(response);
+    const manager = new Manager (response.managerName, response.managerId, response.managerEmail, response.managerPhone)
+    team.push(manager);
     if (response.role === "Engineer"){
     runEngineer();
   } else if (response.role === "Intern"){
@@ -118,7 +121,8 @@ function runManager(){
 
 function runEngineer(){
   promptForEngineer().then(function(response){
-    team.push(response);
+    const engineer = new Engineer (response.engineerName, response.engineerId, response.engineerEmail, response.engineerGithub)
+    team.push(engineer);
     if (response.role === "Engineer"){
     runEngineer();
   } else if (response.role === "Intern"){
@@ -132,7 +136,8 @@ function runEngineer(){
 
 function runIntern(){
   promptForIntern().then(function(response){
-    team.push(response);
+    const intern = new Intern (response.internName, response.internId, response.internEmail, response.internSchool)
+    team.push(intern);
     if (response.role === "Engineer"){
     runEngineer();
   } else if (response.role === "Intern"){
@@ -148,7 +153,7 @@ function runIntern(){
 
 runManager();
 
-
+console.log(team[1]);
 
 
 
