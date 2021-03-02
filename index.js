@@ -143,17 +143,35 @@ function runIntern(){
   } else if (response.role === "Intern"){
     runIntern();
   } else if ( response.role === "Done Exit"){
-    console.log(team);
+    console.log(team.filter((employee) => (employee.role === "Intern")) );
     console.log("Your HTML has been Generated!!!");
+    makeManageCard(team);
   }
   })
+}
+
+function makeManageCard(arr){
+ managerObj = arr.filter((employee) => (employee.role === "Manager"));
+ const managerCardString = 
+ `<div class="card " style="width: 18rem; background-color: blue; color: white; " >
+  <div class="card-header">
+    ${managerObj[0].name} <br>
+    <i class="fas fa-mug-hot"></i>  Manager
+  </div>
+  <ul class="list-group list-group-flush" style="color: black;" >
+    <li class="list-group-item">ID:${managerObj[0].id}</li>
+    <li class="list-group-item">Email: <a href="">${managerObj[0].email}</a> </li>
+    <li class="list-group-item">Office number:${managerObj[0].officeNumber}</li>
+    </ul>
+  </div>`
+ console.log(managerCardString);
 }
 
 
 
 runManager();
 
-console.log(team[1]);
+
 
 
 
@@ -172,14 +190,7 @@ console.log(team[1]);
 
 // const string = 
 // `
-// <!DOCTYPE html>
-// <html lang="en">
-// <head>
-//     <meta charset="UTF-8">
-//     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-//     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-//     <title>Document</title>
-// </head>
+
 // <body>
 // <h1>Manager name is ${response.managersName}.</h1>
 // <h1>Manager ID ${response.managersId}.</h1>
@@ -193,9 +204,9 @@ console.log(team[1]);
 // </body>
 // </html>
 // ` ;  
-// //     fs.writeFile('index.html', string, (err) =>
-// //     err ? console.error(err) : console.log('HTML Generated!')
-// //     );
+//     fs.writeFile('index.html', string, (err) =>
+//     err ? console.error(err) : console.log('HTML Generated!')
+//     );
     
 // });
 // }
