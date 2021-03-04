@@ -5,6 +5,12 @@ const Engineer = require("./lib/engineer")
 const Intern = require("./lib/intern")
 const team = [];
 
+let managerHTMLString = '';
+let engineerHTMLString = '';
+let internHTMLString = '';
+
+
+
 function promptForManager(){
     return inquirer.prompt([
     {
@@ -112,8 +118,12 @@ function runManager(){
   } else if (response.role === "Intern"){
     runIntern();
   } else if ( response.role === "Done Exit"){
-    console.log(team);
+    // console.log(team);
     console.log("Your HTML has been Generated!!!");
+    makeManageCard(team);
+    makeEngineerCard(team);
+    makeInternCard(team);
+    writeFinalHTML(managerHTMLString, engineerHTMLString, internHTMLString);
   }
   })
 }
@@ -128,8 +138,13 @@ function runEngineer(){
   } else if (response.role === "Intern"){
     runIntern();
   } else if ( response.role === "Done Exit"){
-    console.log(team);
+    // console.log(team);
     console.log("Your HTML has been Generated!!!");
+    makeManageCard(team);
+    makeEngineerCard(team);
+    makeInternCard(team);
+    writeFinalHTML(managerHTMLString, engineerHTMLString, internHTMLString);
+    
   }
   })
 }
@@ -143,16 +158,19 @@ function runIntern(){
   } else if (response.role === "Intern"){
     runIntern();
   } else if ( response.role === "Done Exit"){
-    console.log(team.filter((employee) => (employee.role === "Intern")) );
+    // console.log(team.filter((employee) => (employee.role === "Intern")) );
     console.log("Your HTML has been Generated!!!");
     makeManageCard(team);
+    makeEngineerCard(team);
+    makeInternCard(team);
+    writeFinalHTML(managerHTMLString, engineerHTMLString, internHTMLString);
   }
   })
 }
 
 function makeManageCard(arr){
  managerObj = arr.filter((employee) => (employee.role === "Manager"));
- const managerCardString = 
+ const managerHTMLString = 
  `<div class="card " style="width: 18rem; background-color: blue; color: white; " >
   <div class="card-header">
     ${managerObj[0].name} <br>
@@ -164,7 +182,97 @@ function makeManageCard(arr){
     <li class="list-group-item">Office number:${managerObj[0].officeNumber}</li>
     </ul>
   </div>`
- console.log(managerCardString);
+ console.log(managerHTMLString);
+}
+function makeEngineerCard(arr){
+  const engineerArr = arr.filter((employee) => (employee.role === "Engineer"));
+  // console.log(engineerArr);
+  const engineerHTMLString = engineerArr.map(Engineer => 
+    `<div class="card  " style="width: 18rem; background-color: blue; color: white; " >
+    <div class="card-header">
+      ${engineerArr.name} <br>
+      <i class="fas fa-glasses mr-2"></i>  Engineer
+    </div>
+    <ul class="list-group list-group-flush" style="color: black;" >
+      <li class="list-group-item">ID:${engineerArr.id}</li>
+      <li class="list-group-item">Email: <a href="mailto: ">${engineerArr.Email}</a></li>
+      <li class="list-group-item">GitHub:${engineerArr.Github}</li>
+    </ul>
+</div>`
+    
+);
+  console.log(engineerHTMLString);
+
+}
+
+function makeInternCard(arr){
+  const internArr = arr.filter((employee) => (employee.role === "Intern"));
+  // console.log(internArr);
+  const internHTMLString = internArr.map(intern =>
+    `<div class="card  " style="width: 18rem; background-color: blue; color: white; " >
+    <div class="card-header">
+      ${internArr.name}  <br>
+      <i class="fas fa-user-graduate mr-2"></i>  Intern
+    </div>
+    <ul class="list-group list-group-flush" style="color: black;" >
+      <li class="list-group-item">ID:${internArr.id}</li>
+      <li class="list-group-item">Email: <a href="mailto:">${internArr.email}</a> </li>
+      <li class="list-group-item">Shool: ${internArr.school}</li>
+    </ul>
+</div>`
+  )
+console.log(internHTMLString);
+}
+
+function writeFinalHTML (a, b, c){
+
+  fs.writeFile('index.html',`
+  <!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link
+            href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css"
+            rel="stylesheet"
+            integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl"
+            crossorigin="anonymous"
+        />
+        <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
+        <link rel="stylesheet" href="style.css" />
+        <title>My Team</title>
+    </head>
+    <body>
+        <div class="container ">
+            <nav class="navbar navbar-light">
+                <div class="container-fluid justify-content-center">
+                    <span class="mb-0 h1">My Team</span>
+                </div>
+            </nav>
+            <div class="row mt-3 justify-content-center ">
+              
+             ${a}  
+            </div>
+            <div class="row mt-3 justify-content-center ">
+                ${b}
+            </div>
+            <div class="row mt-3 justify-content-center">
+              ${c}
+            </div>
+        </div>
+        <script
+            src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0"
+            crossorigin="anonymous"
+        ></script>
+    </body>
+</html>
+
+  `, (err) =>
+    err ? console.error(err) : console.log('HTML Generated!')
+);
+
+
 }
 
 
@@ -177,36 +285,3 @@ runManager();
 
 
 
-//     .then((response) => {
-//     console.log(response);
-// if (response.role == 'Engineer'){
-// engineerPromptsSync();
-// // 
-// console.log(response);
-
-// }
-// });  
-// console.log(team);
-
-// const string = 
-// `
-
-// <body>
-// <h1>Manager name is ${response.managersName}.</h1>
-// <h1>Manager ID ${response.managersId}.</h1>
-// <h2>Managers Email ${response.managersEmail}. </h2>
-// <h2>Managers Phone number ${response.managersPhone}. </h2>
-// <h4>Here are my Git Hub and Linkedin profile links</h4>
-// <ul>
-//    <li> <a href="${response.linkedUrl}">My linkedin profile link</a>
-//    <li> <a href="${response.githubUrl}">My Git Hub profile link</a>
-// </ul>
-// </body>
-// </html>
-// ` ;  
-//     fs.writeFile('index.html', string, (err) =>
-//     err ? console.error(err) : console.log('HTML Generated!')
-//     );
-    
-// });
-// }
