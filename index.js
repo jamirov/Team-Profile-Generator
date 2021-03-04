@@ -5,9 +5,9 @@ const Engineer = require("./lib/engineer")
 const Intern = require("./lib/intern")
 const team = [];
 
-let managerHTMLString = '';
-let engineerHTMLString = '';
-let internHTMLString = '';
+// let managerHTMLString = '';
+// let engineerHTMLString = '';
+// let internHTMLString = '';
 
 
 
@@ -120,10 +120,7 @@ function runManager(){
   } else if ( response.role === "Done Exit"){
     // console.log(team);
     console.log("Your HTML has been Generated!!!");
-    makeManageCard(team);
-    makeEngineerCard(team);
-    makeInternCard(team);
-    writeFinalHTML(managerHTMLString, engineerHTMLString, internHTMLString);
+    writeFinalHTML(makeManageCard(team), makeEngineerCard(team), makeInternCard(team));
   }
   })
 }
@@ -140,10 +137,7 @@ function runEngineer(){
   } else if ( response.role === "Done Exit"){
     // console.log(team);
     console.log("Your HTML has been Generated!!!");
-    makeManageCard(team);
-    makeEngineerCard(team);
-    makeInternCard(team);
-    writeFinalHTML(managerHTMLString, engineerHTMLString, internHTMLString);
+    writeFinalHTML(makeManageCard(team), makeEngineerCard(team), makeInternCard(team));
     
   }
   })
@@ -160,10 +154,8 @@ function runIntern(){
   } else if ( response.role === "Done Exit"){
     // console.log(team.filter((employee) => (employee.role === "Intern")) );
     console.log("Your HTML has been Generated!!!");
-    makeManageCard(team);
-    makeEngineerCard(team);
-    makeInternCard(team);
-    writeFinalHTML(managerHTMLString, engineerHTMLString, internHTMLString);
+    
+    writeFinalHTML(makeManageCard(team), makeEngineerCard(team), makeInternCard(team));
   }
   })
 }
@@ -182,7 +174,7 @@ function makeManageCard(arr){
     <li class="list-group-item">Office number:${managerObj[0].officeNumber}</li>
     </ul>
   </div>`
- console.log(managerHTMLString);
+ return managerHTMLString;
 }
 function makeEngineerCard(arr){
   const engineerArr = arr.filter((employee) => (employee.role === "Engineer"));
@@ -190,18 +182,18 @@ function makeEngineerCard(arr){
   const engineerHTMLString = engineerArr.map(Engineer => 
     `<div class="card  " style="width: 18rem; background-color: blue; color: white; " >
     <div class="card-header">
-      ${engineerArr.name} <br>
+      ${Engineer.getName()} <br>
       <i class="fas fa-glasses mr-2"></i>  Engineer
     </div>
     <ul class="list-group list-group-flush" style="color: black;" >
-      <li class="list-group-item">ID:${engineerArr.id}</li>
-      <li class="list-group-item">Email: <a href="mailto: ">${engineerArr.Email}</a></li>
-      <li class="list-group-item">GitHub:${engineerArr.Github}</li>
+      <li class="list-group-item">ID:${Engineer.getId()}</li>
+      <li class="list-group-item">Email: <a href="mailto: ">${Engineer.getEmail()}</a></li>
+      <li class="list-group-item">GitHub:${Engineer.getGithub()}</li>
     </ul>
 </div>`
     
 );
-  console.log(engineerHTMLString);
+  return engineerHTMLString;
 
 }
 
@@ -211,17 +203,17 @@ function makeInternCard(arr){
   const internHTMLString = internArr.map(intern =>
     `<div class="card  " style="width: 18rem; background-color: blue; color: white; " >
     <div class="card-header">
-      ${internArr.name}  <br>
+      ${intern.getName()}  <br>
       <i class="fas fa-user-graduate mr-2"></i>  Intern
     </div>
     <ul class="list-group list-group-flush" style="color: black;" >
-      <li class="list-group-item">ID:${internArr.id}</li>
-      <li class="list-group-item">Email: <a href="mailto:">${internArr.email}</a> </li>
-      <li class="list-group-item">Shool: ${internArr.school}</li>
+      <li class="list-group-item">ID:${intern.getId()}</li>
+      <li class="list-group-item">Email: <a href="mailto:">${intern.getEmail()}</a> </li>
+      <li class="list-group-item">Shool: ${intern.getSchool()}</li>
     </ul>
 </div>`
   )
-console.log(internHTMLString);
+return internHTMLString;
 }
 
 function writeFinalHTML (a, b, c){
