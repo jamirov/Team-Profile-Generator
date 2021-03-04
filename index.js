@@ -5,12 +5,6 @@ const Engineer = require("./lib/engineer")
 const Intern = require("./lib/intern")
 const team = [];
 
-// let managerHTMLString = '';
-// let engineerHTMLString = '';
-// let internHTMLString = '';
-
-
-
 function promptForManager(){
     return inquirer.prompt([
     {
@@ -119,7 +113,7 @@ function runManager(){
     runIntern();
   } else if ( response.role === "Done Exit"){
     // console.log(team);
-    console.log("Your HTML has been Generated!!!");
+    // console.log("Your HTML has been Generated!!!");
     writeFinalHTML(makeManageCard(team), makeEngineerCard(team), makeInternCard(team));
   }
   })
@@ -136,7 +130,7 @@ function runEngineer(){
     runIntern();
   } else if ( response.role === "Done Exit"){
     // console.log(team);
-    console.log("Your HTML has been Generated!!!");
+    // console.log("Your HTML has been Generated!!!");
     writeFinalHTML(makeManageCard(team), makeEngineerCard(team), makeInternCard(team));
     
   }
@@ -153,8 +147,7 @@ function runIntern(){
     runIntern();
   } else if ( response.role === "Done Exit"){
     // console.log(team.filter((employee) => (employee.role === "Intern")) );
-    console.log("Your HTML has been Generated!!!");
-    
+    // console.log("Your HTML has been Generated!!!");
     writeFinalHTML(makeManageCard(team), makeEngineerCard(team), makeInternCard(team));
   }
   })
@@ -243,13 +236,13 @@ function writeFinalHTML (a, b, c){
             </nav>
             <div class="row mt-3 justify-content-center ">
               
-             ${a}  
+                               ${a}  
             </div>
             <div class="row mt-3 justify-content-center ">
-                ${b}
+                               ${b}
             </div>
             <div class="row mt-3 justify-content-center">
-              ${c}
+                               ${c}
             </div>
         </div>
         <script
@@ -263,11 +256,7 @@ function writeFinalHTML (a, b, c){
   `, (err) =>
     err ? console.error(err) : console.log('HTML Generated!')
 );
-
-
 }
-
-
 
 runManager();
 
