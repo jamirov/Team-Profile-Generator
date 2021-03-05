@@ -20,7 +20,6 @@
 " target="_blank"><img src="http://img.youtube.com/vi/4TaGrdNMONI/0.jpg" 
 alt="Readme Generator Demo" width="240" height="180" border="10" /></a>
 
-https://youtu.be/DgJLve2f1TE
 
 
 ## Credits
