@@ -184,32 +184,28 @@ function makeEngineerCard(arr){
       <li class="list-group-item">GitHub:${Engineer.getGithub()}</li>
     </ul>
 </div>`
-    
 );
-  return engineerHTMLString;
-
+return engineerHTMLString;
 }
-
 function makeInternCard(arr){
   const internArr = arr.filter((employee) => (employee.role === "Intern"));
   // console.log(internArr);
   const internHTMLString = internArr.map(intern =>
     `<div class="card  " style="width: 18rem; background-color: blue; color: white; " >
-    <div class="card-header">
-      ${intern.getName()}  <br>
-      <i class="fas fa-user-graduate mr-2"></i>  Intern
-    </div>
-    <ul class="list-group list-group-flush" style="color: black;" >
-      <li class="list-group-item">ID:${intern.getId()}</li>
-      <li class="list-group-item">Email: <a href="mailto:">${intern.getEmail()}</a> </li>
-      <li class="list-group-item">Shool: ${intern.getSchool()}</li>
-    </ul>
-</div>`
+      <div class="card-header">
+        ${intern.getName()}  <br>
+        <i class="fas fa-user-graduate mr-2"></i>  Intern
+      </div>
+      <ul class="list-group list-group-flush" style="color: black;" >
+        <li class="list-group-item">ID:${intern.getId()}</li>
+        <li class="list-group-item">Email: <a href="mailto:">${intern.getEmail()}</a> </li>
+        <li class="list-group-item">Shool: ${intern.getSchool()}</li>
+      </ul>
+    </div>`
   )
 return internHTMLString;
 }
-
-function writeFinalHTML (a, b, c){
+function writeFinalHTML (manager, engineer, intern){
 
   fs.writeFile('index.html',`
   <!DOCTYPE html>
@@ -235,14 +231,13 @@ function writeFinalHTML (a, b, c){
                 </div>
             </nav>
             <div class="row mt-3 justify-content-center ">
-              
-                               ${a}  
+            ${manager}  
             </div>
             <div class="row mt-3 justify-content-center ">
-                               ${b}
+            ${engineer}
             </div>
             <div class="row mt-3 justify-content-center">
-                               ${c}
+            ${intern}
             </div>
         </div>
         <script
