@@ -185,7 +185,8 @@ function makeEngineerCard(arr){
     </ul>
 </div>`
 );
-return engineerHTMLString;
+const engineerCard = engineerHTMLString.join('');
+return engineerCard;
 }
 function makeInternCard(arr){
   const internArr = arr.filter((employee) => (employee.role === "Intern"));
@@ -202,8 +203,9 @@ function makeInternCard(arr){
         <li class="list-group-item">Shool: ${intern.getSchool()}</li>
       </ul>
     </div>`
-  )
-return internHTMLString;
+  );
+const internCard = internHTMLString.join('');
+return internCard;
 }
 function writeFinalHTML (manager, engineer, intern){
 
